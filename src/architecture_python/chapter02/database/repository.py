@@ -34,3 +34,6 @@ class SqlAlchemyRepository(AbstractRepository):
 
     def list(self):
         return self.session.query(model.Batch).all()
+
+    def list_all_orderlines(self):
+        return self.session.query(model.OrderLine).all()

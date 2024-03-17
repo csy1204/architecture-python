@@ -24,7 +24,7 @@ from typing import List, Optional
 #     def dispose(self, class_):
 #         del self.originals
 #         delattr(class_, "_sa_class_manager")
-    
+
 #     def manager_getter(self, class_):
 #         def get(cls):
 #             return cls.__dict__["_sa_class_manager"]
@@ -49,9 +49,6 @@ from typing import List, Optional
 #         return find
 
 
-
-
-
 class OutOfStock(Exception):
     pass
 
@@ -70,19 +67,19 @@ class OrderLine:
     orderid: str
     sku: str
     qty: int
-    
+
     def __init__(self, orderid, sku, qty):
         self.orderid = orderid
         self.sku = sku
         self.qty = qty
-        
+
     def __eq__(self, other):
         return (
-            self.orderid == other.orderid and
-            self.sku == other.sku and
-            self.qty == other.qty
+            self.orderid == other.orderid
+            and self.sku == other.sku
+            and self.qty == other.qty
         )
-    
+
     def __hash__(self):
         """Workaround for TypeError: unhashable type: 'OrderLine'
 
@@ -90,6 +87,7 @@ class OrderLine:
             _type_: _description_
         """
         return hash(f"{self.orderid};{self.sku};{self.qty}")
+
 
 # OrderLine.__sa_instrumentation_manager__ = FrozenDataclassInstrumentationManager
 
@@ -119,7 +117,7 @@ class Batch:
         if other.eta is None:
             return True
         return self.eta > other.eta
-    
+
     def to_dict(self):
         return {
             "ref": self.reference,

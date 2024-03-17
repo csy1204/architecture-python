@@ -7,3 +7,8 @@ class BatchBase(BaseModel):
     sku: str
     qty: int
     eta: Optional[date]
+    
+class CreateOrderLine(BaseModel):
+    orderid: str
+    sku: str
+    qty: int
